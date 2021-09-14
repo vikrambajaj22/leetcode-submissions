@@ -4,18 +4,13 @@ class Solution(object):
         :type nums: List[int]
         :rtype: None Do not return anything, modify nums in-place instead.
         """
-        # for i in range(len(nums)):
-        #     if nums[i] == 0:
-        #         nums = nums[:i] + nums[i+1:] + [0]
-        # output prints correct result but leetcode doesn't accept this
+        left = 0
+        right = len(nums) - 1
 
-        n = len(nums) - 1
-        i = 0
-
-        while i < n:
-            if nums[i] == 0:
-                nums.pop(i)
+        while left < right:
+            if nums[left] == 0:
+                nums.pop(left)
                 nums.append(0)
-                n -= 1
+                right -= 1
             else:
-                i += 1
+                left += 1
