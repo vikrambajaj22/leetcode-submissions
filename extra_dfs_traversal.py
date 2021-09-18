@@ -15,7 +15,8 @@ def dfs_traversal(graph, start_node):
             traversal.append(current)
 
             # add all neighbors of current to stack
-            stack.extend(graph[current])
+            stack.extend(
+                [node for node in graph[current] if node not in visited])
 
     return traversal
 

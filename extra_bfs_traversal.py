@@ -15,7 +15,8 @@ def bfs_traversal(graph, start_node):
             traversal.append(current)
 
             # add all neighbors of current to queue
-            queue.extend(graph[current])
+            queue.extend(
+                [node for node in graph[current] if node not in visited])
 
     return traversal
 
