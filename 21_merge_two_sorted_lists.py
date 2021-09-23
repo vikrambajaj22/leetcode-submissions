@@ -10,21 +10,22 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        if l1 and l2:
-            # both l1 and l2 are non-empty
-            result = sorted_list = ListNode()
-            while l1 and l2:
-                if l1.val > l2.val:
-                    sorted_list.next = l2
-                    l2 = l2.next
-                else:
-                    sorted_list.next = l1
-                    l1 = l1.next
-                sorted_list = sorted_list.next
-            # capture remaining elements (if any) in l1 or l2
-            sorted_list.next = l1 or l2
-            return result.next  # points to start of sorted_list
-        else:
-            # either l1 or l2 is empty (or both are)
-            # return whichever is non-empty, or None
-            return l1 or l2
+        if not l1:
+            return l2
+        if not l2:
+            return l1
+
+        result = l3 = ListNode()  # initialized with a dummy 0 node
+        
+        while l1 and l2:
+            if l1.val <= l2.val:
+                l3.next = l1
+                l1 = l1.next
+            else:
+                l3.next = l2
+                l2 = l2.next
+            l3 = l3.next
+            
+        l3.next = l1 or l2  # either l1 or l2 could still have nodes
+            
+        return result.next  # points to first non-dummy node
