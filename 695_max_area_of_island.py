@@ -4,7 +4,7 @@ class Solution(object):
         :type grid: List[List[int]]
         :rtype: int
         """
-        visited = []
+        visited = set()
         max_area = 0
 
         rows = len(grid)
@@ -13,7 +13,7 @@ class Solution(object):
         def dfs(r, c):
             if (r, c) in visited or (r < 0 or r+1 > rows) or (c < 0 or c+1 > cols) or grid[r][c] == 0:
                 return 0
-            visited.append((r, c))
+            visited.add((r, c))
             return 1 + dfs(r-1, c) + dfs(r+1, c) + dfs(r, c-1) + dfs(r, c+1)
 
         for r in range(rows):
