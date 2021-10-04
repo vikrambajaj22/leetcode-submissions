@@ -5,13 +5,20 @@ class Solution(object):
         :type n: int
         :rtype: List[int]
         """
-        if n == 1:
-            return nums
+#         # O(n) space
+#         res = []
+#         for i in range(n):
+#             res.append(nums[i])
+#             res.append(nums[n+i])
 
-        res = []
-        # res.extend([y for x in zip(nums[:n], nums[n:]) for y in x])
+#         return res
 
+        # O(1) space
         for i in range(n):
-            res.append(nums[i])
-            res.append(nums[n+i])
-        return res
+            nums[i] = [nums[i], nums[n]]
+            nums.pop(n)  # pop element at nth index
+
+        # flatten nums
+        nums = [x for sublist in nums for x in sublist]
+
+        return nums
