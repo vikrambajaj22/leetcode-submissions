@@ -1,30 +1,24 @@
-import math
-
-
 class Solution(object):
-
     def numIdenticalPairs(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
+        counts = {}
+        for num in nums:
+            if num not in counts:
+                counts[num] = 1
+            else:
+                counts[num] += 1
 
-        count = 0
-        if len(nums) == 1 or len(set(nums)) == len(nums):
-            return count
+        from math import factorial as fact
 
-        num_dict = {}
+        good_pairs = 0
 
-        for i, num in enumerate(nums):
-            if num not in num_dict:
-                num_dict[num] = 0
-            num_dict[num] += 1
+        for num in counts:
+            count = counts[num]
+            if count > 1:
+                good_pairs += fact(count) / (fact(2) *
+                                             fact(count-2))  # countC2
 
-        f = math.factorial
-
-        for num in num_dict:
-            num_count = num_dict[num]
-            if num_count > 1:
-                count += f(num_count) / f(2) / f(num_count-2)
-
-        return count
+        return good_pairs
