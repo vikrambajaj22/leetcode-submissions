@@ -5,22 +5,24 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
+        if len(t) != len(s):
+            return False
+
         # return sorted(list(s)) == sorted(list(t))  # O(nlogn)
+        # below is O(n) i.e. checking character frequencies
 
-        # below is O(n)
-        s_dict = {}
         t_dict = {}
+        s_dict = {}
 
-        for ch in s:
-            if ch not in s_dict:
-                s_dict[ch] = 1
+        for i in range(len(s)):
+            if s[i] not in s_dict:
+                s_dict[s[i]] = 1
             else:
-                s_dict[ch] += 1
+                s_dict[s[i]] += 1
 
-        for ch in t:
-            if ch not in t_dict:
-                t_dict[ch] = 1
+            if t[i] not in t_dict:
+                t_dict[t[i]] = 1
             else:
-                t_dict[ch] += 1
+                t_dict[t[i]] += 1
 
         return s_dict == t_dict
