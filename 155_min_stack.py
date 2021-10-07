@@ -13,6 +13,8 @@ class MinStack(object):
         """
         # every element of stack contains (pushed_value, current_minimum)
         if not self.stack:
+            # better not to use a self.min variable since stack can become emtpty after
+            # multiple pops and then min would have to be reset
             self.stack.append((val, val))
         else:
             # (pushed_value, min(prev_minimum, pushed_value))
