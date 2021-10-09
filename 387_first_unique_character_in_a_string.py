@@ -4,15 +4,16 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        d = OrderedDict()
+        d = {}
+
         for ch in s:
             if ch not in d:
                 d[ch] = 1
             else:
                 d[ch] += 1
 
-        for ch in d:
+        for i, ch in enumerate(s):
             if d[ch] == 1:
-                return s.index(ch)
+                return i
 
         return -1
