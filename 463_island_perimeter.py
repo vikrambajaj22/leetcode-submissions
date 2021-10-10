@@ -1,41 +1,32 @@
 class Solution(object):
     def __init__(self):
-        self.rows = 0
-        self.cols = 0
-        self.visited = set()
         self.perimeter = 0
-        
-    def islandPerimeter(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
-        self.rows = len(grid)
-        self.cols = len(grid[0])
-        
-        # find the first 1
-        for r in range(self.rows):
-            for c in range(self.cols):
-                if grid[r][c]:  # == 1
-                    self.computePerimeter(r, c, grid)
-                    return self.perimeter
-                    
-    def computePerimeter(self, r, c, grid):
-        self.visited.add((r, c))
-        
-        directions = [(0,1), (0,-1), (1,0), (-1,0)]
-        for x, y in directions:
-            new_r, new_c = r+x, c+y
-            
-            if new_r < 0 or new_r >= self.rows:
-                # first or last row
-                self.perimeter += 1
-            if new_c < 0 or new_c >= self.cols:
-                # first or last column
-                self.perimeter += 1
+        self.visited = set()
 
-            if 0 <= new_r < self.rows and 0 <= new_c < self.cols and (new_r, new_c) not in self.visited:
-                if grid[new_r][new_c] == 0:  # water
+    def islandPerimeter(self, grid):
+        rows = len(grid)
+        cols = len(grid[0])
+
+        def compute(r, c):
+            self.visited.add((r, c))
+            for x, y in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                new_r, new_c = r+x, c+y
+                if new_r < 0 or new_r >= rows:
+                    # first row or last row
                     self.perimeter += 1
-                else:
-                    self.computePerimeter(new_r, new_c, grid)
+                if new_c < 0 or new_c >= cols:
+                    # first col or last col
+                    self.perimeter += 1
+
+                if 0 <= new_r < rows and 0 <= new_c < cols and (new_r, new_c) not in self.visited:
+                    if grid[new_r][new_c] == 0:
+                        self.perimeter += 1
+                    else:
+                        self.visited.add((new_r, new_c))
+                        compute(new_r, new_c)
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c]:  # find first 1
+                    compute(r, c)
+                    return self.perimeter
