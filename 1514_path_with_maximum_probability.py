@@ -39,6 +39,9 @@ class Solution(object):
                 continue
             visited.add(curr_node)
 
+            if curr_node == end:
+                return curr_prob  # early break in case end is visited since we don't need probabilities from source to all nodes, just the end node
+
             if curr_node in graph:
                 for node in graph[curr_node]:
                     if node in visited:
@@ -47,7 +50,4 @@ class Solution(object):
                         prob[node] = curr_prob * graph[curr_node][node]
                         heapq.heappush(heap, (-prob[node], node))
 
-        if end not in visited:
-            return 0
-
-        return prob[end]
+        return 0  # end was not visited
