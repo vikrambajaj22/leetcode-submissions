@@ -8,14 +8,11 @@ class Solution(object):
         """
         # use dijkstra's algo to get the shortest times to each node from source k
         # and then return the longest of these paths
-        graph = {}
 
         # graph is an adjacency map of the form 'u1': {'v1':t1, 'v2':t2, ...}
+        graph = {u: {} for u in range(1, n+1)}
         for item in times:
             u, v, t = item
-            if u not in graph:
-                graph[u] = {}
-
             graph[u][v] = t
 
         visited = set()
@@ -31,14 +28,13 @@ class Solution(object):
                 continue
             visited.add(curr_node)
 
-            if curr_node in graph:
-                for node in graph[curr_node]:
-                    if node in visited:
-                        continue
-                    if curr_distance + graph[curr_node][node] < distances[node]:
-                        distances[node] = curr_distance + \
-                            graph[curr_node][node]
-                        heapq.heappush(heap, (distances[node], node))
+            for node in graph[curr_node]:
+                if node in visited:
+                    continue
+                if curr_distance + graph[curr_node][node] < distances[node]:
+                    distances[node] = curr_distance + \
+                        graph[curr_node][node]
+                    heapq.heappush(heap, (distances[node], node))
 
         # checking for unreachable nodes
         if len(visited) < len(distances):
