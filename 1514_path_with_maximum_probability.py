@@ -11,13 +11,9 @@ class Solution(object):
         # construct a bi-directional graph in the form of an adjacency map
         # {u: {v: p}}
 
-        graph = {}
+        graph = {u: {} for u in range(n)}
         for i, edge in enumerate(edges):
             u, v = edge
-            if u not in graph:
-                graph[u] = {}
-            if v not in graph:
-                graph[v] = {}
 
             graph[u][v] = succProb[i]
             graph[v][u] = succProb[i]
@@ -42,12 +38,11 @@ class Solution(object):
             if curr_node == end:
                 return curr_prob  # early break in case end is visited since we don't need probabilities from source to all nodes, just the end node
 
-            if curr_node in graph:
-                for node in graph[curr_node]:
-                    if node in visited:
-                        continue
-                    if curr_prob * graph[curr_node][node] > prob[node]:
-                        prob[node] = curr_prob * graph[curr_node][node]
-                        heapq.heappush(heap, (-prob[node], node))
+            for node in graph[curr_node]:
+                if node in visited:
+                    continue
+                if curr_prob * graph[curr_node][node] > prob[node]:
+                    prob[node] = curr_prob * graph[curr_node][node]
+                    heapq.heappush(heap, (-prob[node], node))
 
         return 0  # end was not visited
