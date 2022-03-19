@@ -28,7 +28,8 @@ class MedianFinder(object):
         """
         if len(self.lower) == len(self.upper):
             # even number of elements, so take average of lower_max and upper_min
-            return float((-self.lower[0]+self.upper[0])) / 2
+            # needs to return float
+            return (-self.lower[0]+self.upper[0]) / 2.0
         else:
             # return max of lower, because it has at most one element more than upper
             # and this element is the median
