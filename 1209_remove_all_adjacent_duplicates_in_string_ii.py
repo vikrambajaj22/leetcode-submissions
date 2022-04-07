@@ -28,21 +28,21 @@ class Solution(object):
         stack = []  # stores [ch, count] items
 
         for ch in s:
-            if not stack or stack[-1][0] != ch:
+            if not stack:
                 stack.append([ch, 1])
             else:
-                # stack[-1][0] == ch
-                ch_count = stack[-1][1]
-                if ch_count == k-1:
-                    # this occurrence of ch is the kth consecutive occurrence
-                    # remove ch from stack
-                    stack.pop()
+                top, count = stack[-1]
+                if ch == top:
+                    if count == k-1:
+                        # this is the kth occurrence, remove ch from stack
+                        stack.pop()
+                    else:
+                        # increment consecutive count
+                        stack[-1][1] += 1
                 else:
-                    stack[-1][1] += 1
+                    # top != ch
+                    stack.append([ch, 1])
 
-        res = ''
-        while stack:
-            ch, count = stack.pop()
-            res = ch * count + res
-
-        return res
+        # all k-len duplicates have been removed
+        # combine remaining characters using their counts
+        return ''.join(s[0]*s[1] for s in stack)
