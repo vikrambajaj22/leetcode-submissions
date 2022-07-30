@@ -19,8 +19,9 @@ class Solution(object):
             # everything to its right in the inorder traversal is the right subtree
             
             # assumption: unique node values
-            index = inorder.index(preorder.pop(0))
-            root = TreeNode(inorder[index])
+            root_val = preorder.pop(0)
+            index = inorder.index(root_val)
+            root = TreeNode(root_val)
             root.left = self.buildTree(preorder, inorder[:index])
             root.right = self.buildTree(preorder, inorder[index+1:])
             
