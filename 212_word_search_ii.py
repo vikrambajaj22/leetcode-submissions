@@ -24,7 +24,8 @@ class Solution(object):
         """
         # could do # 79 word search for each word
         # the solution for # 79 does a dfs (with backtracking) from each cell of the grid
-        # if we do this for each word in the word list, it will be very inefficient
+        # if we do this for each word in the word list, it will be very inefficient (k*mn*(4^(mn)))
+        # because 4^(mn) is time complexity of dfs with backtracking in 4 directions, we do that mn times for each of the k words
         # instead, use a trie to determine which cells to perform dfs (with backtracking) from
         
         # start by inserting all words into the trie
