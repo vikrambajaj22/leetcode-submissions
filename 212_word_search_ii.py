@@ -52,6 +52,7 @@ class Solution(object):
         visited = set()
         for r in range(rows):
             for c in range(cols):
-                dfs(r, c, t.trie, '')
+                if board[r][c] in t.trie:
+                    dfs(r, c, t.trie, '')
                 
         return found
