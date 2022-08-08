@@ -18,9 +18,9 @@ class Solution(object):
     def dfs(self, root):
         if not root: return
         
-        left_sum = max(0, self.dfs(root.left))
+        left_sum = max(0, self.dfs(root.left))  # account for -ve values
         right_sum = max(0, self.dfs(root.right))
         
         self.max_sum = max(self.max_sum, root.val+left_sum+right_sum)
         
-        return root.val + max(left_sum, right_sum)
+        return root.val + max(left_sum, right_sum)  # max because we cannot choose both (won't constitute a path based on problem definition)
