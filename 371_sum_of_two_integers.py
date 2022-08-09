@@ -8,6 +8,8 @@ class Solution(object):
         # bit manipulation
         # a ^ b gives the result if there is no carry
         # (a & b) << 1 is the carry, add it to the ^ result till there is no carry
+
+        # will TLE in Python; need to use a mask to prevent it from exceeding 32 bits, but same logic works in Java as is
         
         while b:
             carry = (a & b) << 1
