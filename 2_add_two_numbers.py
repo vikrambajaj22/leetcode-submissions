@@ -9,6 +9,7 @@ class Solution(object):
         :type l1: ListNode
         :type l2: ListNode
         :rtype: ListNode
+        assumption: lists are reversed already
         """
         res = l3 = ListNode()
         carry = 0
