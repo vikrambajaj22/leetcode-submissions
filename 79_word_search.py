@@ -5,25 +5,25 @@ class Solution(object):
         :type word: str
         :rtype: bool
         """
-        for r in range(len(board)):
-            for c in range(len(board[0])):
-                if self.dfs(board, word, r, c, set(), 0):
-                    return True
-                
+        rows = len(board)
+        cols = len(board[0])
+        
+        def dfs(r, c, index, visited):
+            if index == len(word):
+                return True
+            
+            if r < 0 or r >= rows or c < 0 or c >= cols or (r, c) in visited or board[r][c] != word[index]:
+                return False
+            
+            visited.add((r, c))
+            res = dfs(r-1, c, index+1, visited) or dfs(r+1, c, index+1, visited) or dfs(r, c-1, index+1, visited) or dfs(r, c+1, index+1, visited)
+            visited.remove((r, c))
+            
+            return res
+            
+        for r in range(rows):
+            for c in range(cols):
+                if board[r][c] == word[0]:
+                    if dfs(r, c, 0, set()): return True
+                    
         return False
-    
-    
-    def dfs(self, board, word, r, c, visited, index):
-        if index == len(word):
-            return True
-        
-        if r < 0 or r >= len(board) or c < 0 or c >= len(board[0]) or (r, c) in visited or board[r][c] != word[index]:
-            return False
-        
-        visited.add((r, c))
-        
-        res = self.dfs(board, word, r-1, c, visited, index+1) or self.dfs(board, word, r+1, c, visited, index+1) or self.dfs(board, word, r, c-1, visited, index+1) or self.dfs(board, word, r, c+1, visited, index+1)
-        
-        visited.remove((r, c))
-        
-        return res
